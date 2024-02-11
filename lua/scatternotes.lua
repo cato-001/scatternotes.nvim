@@ -19,7 +19,6 @@ local function create_note()
 		style = 'minimal',
 		title = '  Write Your Note  ',
 		title_pos = 'center',
-		footer = '  :q Quit / :w Write  ',
 		border = 'rounded',
 	})
 end
