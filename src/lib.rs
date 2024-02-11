@@ -50,7 +50,7 @@ impl MakeNoteState {
             .row(window_row)
             .col(window_col)
             .build();
-        let window = api::open_win(&buffer, true, &window_config)?;
+        let window = api::open_win(&buffer, false, &window_config)?;
         return Ok(Self::WriteNote { window, buffer });
     }
 }
