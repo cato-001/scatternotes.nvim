@@ -3,7 +3,8 @@ local state = {}
 local function create_note()
 	local buffer = vim.api.nvim_create_buf(false, false)
 
-	local ui = vim.api.nvim_list_uis()[0];
+	local terminal_width = vim.o.winwidth
+	local terminal_height = vim.o.winheight
 
 	local width = 40;
 	local height = 30;
@@ -11,8 +12,8 @@ local function create_note()
 		relative = 'editor',
 		width = width,
 		height = height,
-		col = (ui.width / 2) - (width / 2),
-		row = (ui.height / 2) - (height / 2),
+		col = (terminal_width / 2) - (width / 2),
+		row = (terminal_height / 2) - (height / 2),
 		anchor = 'NW',
 		style = 'minimal',
 	})
