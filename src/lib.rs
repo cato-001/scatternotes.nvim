@@ -34,17 +34,15 @@ impl MakeNoteState {
         let width = ui.width as u32;
         let height = ui.height as u32;
 
-        let window_width = cmp::min(width - 20, width / 10 * 7);
-        let window_height = cmp::min(height - 20, height / 10 * 8);
+        let window_width = 30;
+        let window_height = 20;
 
         let window_row = (height / 2) - (window_height / 2);
         let window_col = (width / 2) - (window_width / 2);
 
         let window_config = WindowConfig::builder()
             .relative(WindowRelativeTo::Editor)
-            .border(WindowBorder::Single)
-            .title(WindowTitle::SimpleString(OxiString::from("Write New Note")))
-            .title_pos(WindowTitlePosition::Left)
+            //.border(WindowBorder::Single)
             .width(window_width)
             .height(window_height)
             .row(window_row)
