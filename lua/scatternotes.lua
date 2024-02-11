@@ -17,9 +17,11 @@ local function create_note()
 		row = (current_height / 2) - (height / 2),
 		anchor = 'NW',
 		style = 'minimal',
-		title = 'Write Your Note',
-		title_pos = 'left',
-		border = 'rounded'
+		title = '  Write Your Note  ',
+		title_pos = 'center',
+		footer = '  :q Quit / :w Write  ',
+		footer_pos = 'right',
+		border = 'rounded',
 	})
 end
 
