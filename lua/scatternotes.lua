@@ -20,7 +20,6 @@ local function create_note()
 		title = '  Write Your Note  ',
 		title_pos = 'center',
 		footer = '  :q Quit / :w Write  ',
-		footer_pos = 'right',
 		border = 'rounded',
 	})
 end
