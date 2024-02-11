@@ -7,5 +7,6 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
+derive_more = "0.99.17"
 nvim-oxi = { version = "0.4.2", features = ["neovim-0-9"] }
 
