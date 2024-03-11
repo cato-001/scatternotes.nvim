@@ -30,7 +30,7 @@ local state = {
 }
 
 local function create_note()
-  if state.create_note_window != nil then
+  if state.create_note_window ~= nil then
     return
   end
 
