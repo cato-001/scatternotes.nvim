@@ -41,6 +41,7 @@ local function create_note()
   })
   state.buffer = vim.cmd.edit(filename)
 
+  print(state.buffer)
   state.create_note_window = create_centered_window('Write Your Note', .8, .6, state.buffer)
 end
 
