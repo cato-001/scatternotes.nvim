@@ -35,14 +35,15 @@ local function create_note()
     return
   end
 
+  state.buffer = vim.api.nvim_create_buf(false, false)
+  state.create_note_window = create_centered_window('Write Your Note', .8, .6, state.buffer)
+
   local filename = vim.fn.system({
     "scatternotes",
     "create",
     "--daily",
   })
-  state.buffer = vim.fn.bufadd(filename)
-
-  state.create_note_window = create_centered_window('Write Your Note', .8, .6, state.buffer)
+  vim.cmd.edit(filename)
 end
 
 return {
