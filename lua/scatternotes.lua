@@ -29,6 +29,18 @@ local state = {
   create_note_window = nil
 }
 
+function read_array(file)
+  local arr    = {}
+  local handle = assert(io.open(file, "r"))
+  local value  = handle:read("*number")
+  while value do
+    table.insert(arr, value)
+    value = handle:read("*number")
+  end
+  handle:close()
+  return arr
+end
+
 local function create_note()
   if state.create_note_window ~= nil then
     return
@@ -43,17 +55,10 @@ local function create_note()
     "--daily",
   })
 
-  vim.fn.wait(1000, function()
-    return true
-  end)
-
   vim.api.nvim_buf_set_option(state.buffer, 'modifiable', true)
   vim.api.nvim_buf_set_option(state.buffer, 'filetype', 'md')
 
-  local file_content = {}
-  for line in io.lines(filename) do
-    table.insert(file_content, line)
-  end
+  local file_content = read_array(filename)
 
   vim.api.nvim_buf_set_lines(state.buffer, 0, -1, false, file_content)
 end
