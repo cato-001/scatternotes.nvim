@@ -64,6 +64,7 @@ local function create_note()
   local file_content = read_array(filename)
 
   vim.api.nvim_buf_set_lines(state.buffer, 0, -1, false, file_content)
+  vim.api.nvim_buf_set_text(state.buffer, 0, 0, -1, -1, { "some", "text" })
 end
 
 return {
