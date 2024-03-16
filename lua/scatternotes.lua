@@ -44,7 +44,7 @@ local function create_note()
   })
 
   vim.api.nvim_buf_set_option(state.buffer, 'modifiable', true)
-  vim.cmd(filename)
+  vim.cmd.edit(filename)
 end
 
 return {
