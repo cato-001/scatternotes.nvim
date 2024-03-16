@@ -43,6 +43,10 @@ local function create_note()
     "--daily",
   })
 
+  vim.fn.wait(1000, function()
+    return true
+  end)
+
   vim.api.nvim_buf_set_option(state.buffer, 'modifiable', true)
   vim.api.nvim_buf_set_option(state.buffer, 'filetype', 'md')
 
