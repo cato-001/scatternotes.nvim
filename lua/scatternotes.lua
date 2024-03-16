@@ -42,7 +42,7 @@ local function create_note()
     "create",
     "--daily",
   })
-  state.buffer = vim.cmd.edit(filename)
+  state.buffer = vim.fn.bufadd(filename)
 
   print(state.buffer)
   state.create_note_window = create_centered_window('Write Your Note', .8, .6, state.buffer)
