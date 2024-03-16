@@ -43,8 +43,18 @@ local function create_note()
     "--daily",
   })
 
+  local content = io.read('*a', filename)
+  print(content)
+
   vim.api.nvim_buf_set_option(state.buffer, 'modifiable', true)
-  vim.cmd.edit(filename)
+  vim.api.nvim_buf_set_option(state.buffer, 'filetype', 'md')
+
+  local file_content = {}
+  for line in io.lines(filename) do
+    table.insert(file_content, line)
+  end
+
+  vim.api.nvim_buf_set_lines(state.buffer, 0, -1, false, file_content)
 end
 
 return {
