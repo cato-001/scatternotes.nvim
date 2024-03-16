@@ -1,8 +1,7 @@
 local function current_window_dimensions()
-  local current_window = vim.api.nvim_get_current_win()
-  local current_width = vim.api.nvim_win_get_width(current_window)
-  local current_height = vim.api.nvim_win_get_height(current_window)
-  return { width = current_width, height = current_height }
+  local width = vim.api.nvim_get_option("columns")
+  local height = vim.api.nvim_get_option("lines")
+  return { width = width, height = height }
 end
 
 local function create_centered_window(title, width_scalar, height_scalar, buffer)
@@ -43,7 +42,9 @@ local function create_note()
     "create",
     "--daily",
   })
-  vim.cmd.edit(filename)
+
+  vim.api.nvim_buf_set_option(state.buffer, 'modifiable', true)
+  vim.cmd(filename)
 end
 
 return {
