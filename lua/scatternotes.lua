@@ -6,13 +6,11 @@ local function current_window_dimensions()
 end
 
 local function create_centered_window(title, width_scalar, height_scalar, buffer)
-  print(title, width_scalar, height_scalar, buffer)
   local dimensions = current_window_dimensions();
 
   local width = math.floor(dimensions.width * width_scalar);
   local height = math.floor(dimensions.height * height_scalar);
 
-  print(type(buffer))
   return vim.api.nvim_open_win(buffer, true, {
     relative = 'editor',
     width = width,
@@ -44,7 +42,6 @@ local function create_note()
   })
   state.buffer = vim.fn.bufadd(filename)
 
-  print(state.buffer)
   state.create_note_window = create_centered_window('Write Your Note', .8, .6, state.buffer)
 end
 
