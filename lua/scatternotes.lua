@@ -11,16 +11,16 @@ local function create_centered_window(title, width_scalar, height_scalar, buffer
   local height = math.floor(dimensions.height * height_scalar);
 
   return vim.api.nvim_open_win(buffer, true, {
-    relative = 'editor',
-    width = width,
-    height = height,
-    col = (dimensions.width / 2) - (width / 2),
-    row = (dimensions.height / 2) - (height / 2),
-    anchor = 'NW',
-    style = 'minimal',
-    title = title,
+    relative  = 'editor',
+    width     = width,
+    height    = height,
+    col       = (dimensions.width / 2) - (width / 2),
+    row       = (dimensions.height / 2) - (height / 2),
+    anchor    = 'NW',
+    style     = 'minimal',
+    title     = title,
     title_pos = 'center',
-    border = 'rounded',
+    border    = 'rounded',
   })
 end
 
@@ -30,8 +30,9 @@ local state = {
 }
 
 local function read_array(file)
+  local path   = vim.fn.expand(file)
   local arr    = {}
-  local handle = assert(io.open(file, "r"))
+  local handle = assert(io.open(path, "r"))
   local value  = handle:read("*number")
   while value do
     table.insert(arr, value)
