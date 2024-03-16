@@ -29,7 +29,7 @@ local state = {
   create_note_window = nil
 }
 
-function read_array(file)
+local function read_array(file)
   local arr    = {}
   local handle = assert(io.open(file, "r"))
   local value  = handle:read("*number")
@@ -57,6 +57,8 @@ local function create_note()
 
   vim.api.nvim_buf_set_option(state.buffer, 'modifiable', true)
   vim.api.nvim_buf_set_option(state.buffer, 'filetype', 'md')
+
+  filename = "/home/cato/notes/LDPLKUJ5NDFNSMGNYAEN.md"
 
   local file_content = read_array(filename)
 
