@@ -6,9 +6,15 @@ local function current_window_dimensions()
 end
 
 local function create_centered_window(title, width_scalar, height_scalar, buffer)
+  print(title, width_scalar, height_scalar)
   local dimensions = current_window_dimensions();
+  print(dimensions);
+
   local width = math.floor(dimensions.width * width_scalar);
   local height = math.floor(dimensions.height * height_scalar);
+
+  print(width);
+  print(height);
 
   return vim.api.nvim_open_win(buffer, true, {
     relative = 'editor',
@@ -34,11 +40,13 @@ local function create_note()
     return
   end
 
+  print("hello")
   local filename = vim.fn.system({
     "scatternotes",
     "create",
     "--daily",
   })
+  print(filename)
   state.buffer = vim.cmd.edit(filename)
 
   print(state.buffer)
