@@ -43,13 +43,13 @@ local function get_context_tag(opts)
 end
 
 local function get_time_tags(opts)
-  tags = {}
+  local tags = {}
 
   if opts["date"] or opts["daily"] then
-    tags[#tags + 1] = '#date-' .. os.date('%Y-%m-%d')
+    table.insert(tags, '#date-' .. os.date('%Y-%m-%d'))
   end
   if opts["time"] and not opts["daily"] then
-    tags[#tags + 1] = '#time-' .. os.date('%H-%M')
+    table.insert(tags, '#time-' .. os.date('%H-%M'))
   end
 
   return tags
@@ -61,15 +61,15 @@ local function get_tags(opts)
   local tags = { get_context_tag(opts) }
 
   if opts["daily"] then
-    tags[#tags + 1] = '#daily'
+    table.insert(tags, '#daily')
   end
 
   for _, tag in ipairs(get_time_tags(opts)) do
-    tags[#tags + 1] = tag
+    table.insert(tags, tag)
   end
 
   for _, value in ipairs(opts) do
-    tags[#tags + 1] = '#' + value
+    table.insert(tags, '#' + value)
   end
 
   return tags
