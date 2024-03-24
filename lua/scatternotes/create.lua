@@ -32,60 +32,40 @@ local function generate_note_filename()
   return filename
 end
 
+local function get_context_tag(opts)
+  if opts["work"] or opts["daily"] then
+    return "#work"
+  end
+  if opts["scouts"] then
+    return "#scouts"
+  end
+  return "#personal"
+end
+
+local function get_time_tags(opts)
+  tags = {}
+
+  if opts["date"] or opts["daily"] then
+    tags[#tags + 1] = '#date-' .. os.date('%Y-%m-%d')
+  end
+  if opts["time"] and not opts["daily"] then
+    tags[#tags + 1] = '#time-' .. os.date('%H-%M')
+  end
+
+  return tags
+end
+
 local function get_tags(opts)
   opts = opts or {}
 
-  local work = false
-  local scouts = false
-  local personal = false
-  local daily = false
-  local date = false
-  local time = false
+  local tags = { get_context_tag(opts) }
 
-  if opts["work"] then
-    work = true
-  end
-  if opts["scouts"] then
-    scouts = true
-  end
-  if opts["personal"] then
-    personal = true
-  end
   if opts["daily"] then
-    daily = true
-  end
-  if opts["date"] then
-    date = true
-  end
-  if opts["time"] then
-    time = true
-  end
-
-  work = work or daily
-  scouts = scouts or (not work and not personal)
-  personal = not work and not scouts
-  date = date or daily
-  if daily then time = false end
-
-  local tags = {}
-
-  if work then
-    tags[#tags + 1] = '#work'
-  end
-  if scouts then
-    tags[#tags + 1] = '#scouts'
-  end
-  if personal then
-    tags[#tags + 1] = '#personal'
-  end
-  if daily then
     tags[#tags + 1] = '#daily'
   end
-  if date then
-    tags[#tags + 1] = '#date-' .. os.date('%Y-%m-%d')
-  end
-  if time then
-    tags[#tags + 1] = '#time-' .. os.date('%H-%M')
+
+  for _, tag in ipairs(get_time_tags(opts)) do
+    tags[#tags + 1] = tag
   end
 
   for _, value in ipairs(opts) do
