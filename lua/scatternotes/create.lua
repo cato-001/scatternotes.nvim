@@ -32,6 +32,25 @@ local function generate_note_filename()
   return filename
 end
 
+local function get_priority_tag(opts)
+  if opts["todo"] then
+    return "#todo"
+  end
+  if opts["howto"] then
+    return "#howto"
+  end
+  if opts["remind"] then
+    return "#remind"
+  end
+  if opts["research"] then
+    return "#research"
+  end
+  if opts["idea"] then
+    return "#idea"
+  end
+  return nil
+end
+
 local function get_context_tag(opts)
   if opts["work"] or opts["daily"] then
     return "#work"
@@ -58,7 +77,14 @@ end
 local function get_tags(opts)
   opts = opts or {}
 
-  local tags = { get_context_tag(opts) }
+  local tags = {}
+
+  local priority_tag = get_priority_tag()
+  if priority_tag then
+    table.insert(tags, priority_tag)
+  end
+
+  table.insert(tags, get_context_tag(opts))
 
   if opts["daily"] then
     table.insert(tags, '#daily')
