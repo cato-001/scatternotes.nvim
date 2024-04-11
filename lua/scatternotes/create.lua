@@ -6,7 +6,7 @@ local function generate_note_key()
     return string.char(byte + offset)
   end
   local function random_char()
-    local random = math.random(36)
+    local random = math.random(35)
     if (random < 26) then
       return char_offset('A', random)
     end
@@ -79,7 +79,7 @@ local function get_tags(opts)
 
   local tags = {}
 
-  local priority_tag = get_priority_tag()
+  local priority_tag = get_priority_tag(opts)
   if priority_tag then
     table.insert(tags, priority_tag)
   end
@@ -90,12 +90,12 @@ local function get_tags(opts)
     table.insert(tags, '#daily')
   end
 
-  for _, tag in ipairs(get_time_tags(opts)) do
-    table.insert(tags, tag)
+  for _, value in ipairs(opts) do
+    table.insert(tags, '#' .. value)
   end
 
-  for _, value in ipairs(opts) do
-    table.insert(tags, '#' + value)
+  for _, tag in ipairs(get_time_tags(opts)) do
+    table.insert(tags, tag)
   end
 
   return tags
