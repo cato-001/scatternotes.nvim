@@ -1,35 +1,10 @@
 local create_centered_window = require('scatternotes.window').create_centered_window
 
 local function generate_note_key()
-  local function char_offset(char, offset)
-    local byte = string.byte(char)
-    return string.char(byte + offset)
-  end
-  local function random_char()
-    local random = math.random(35)
-    if (random < 26) then
-      return char_offset('A', random)
-    end
-    return char_offset('0', random - 26)
-  end
-  local key = {}
-  for i = 1, 20 do
-    key[i] = random_char()
-  end
-  return table.concat(key)
 end
 
 local function generate_note_filename()
-  local key = generate_note_key()
-  local filepath = vim.fn.expand('~') .. '/notes/'
-  local filename = filepath .. key .. '.md'
-
-  while vim.fn.filereadable(filename) == 1 do
-    key = generate_note_key()
-    filename = filepath .. key .. '.md'
-  end
-
-  return filename
+  return vim.fn.system('scatternotes generate')
 end
 
 local function get_priority_tag(opts)
