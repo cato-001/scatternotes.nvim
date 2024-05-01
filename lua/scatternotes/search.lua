@@ -43,7 +43,7 @@ local function notes_search_picker(opts)
   local sorter = config.generic_sorter(opts)
   local previewer = previewers.new_termopen_previewer({
     get_command = function(entry)
-      return { 'cat', entry.path }
+      return { 'bat', '-n', entry.path }
     end
   })
 
