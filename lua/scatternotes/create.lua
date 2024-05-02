@@ -1,10 +1,7 @@
 local create_centered_window = require('scatternotes.window').create_centered_window
 
-local function generate_note_key()
-end
-
 local function generate_note_filename()
-  return vim.fn.system('scatternotes generate')
+  return vim.fn.system('scatternotes generate'):gsub('[\t\n ]+$', '')
 end
 
 local function get_priority_tag(opts)
