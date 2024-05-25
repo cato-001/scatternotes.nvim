@@ -4,70 +4,19 @@ local function generate_note_filename()
   return vim.fn.system('scatternotes generate'):gsub('[\t\n ]+$', '')
 end
 
-local function get_priority_tag(opts)
-  if opts["todo"] then
-    return "#todo"
-  end
-  if opts["howto"] then
-    return "#howto"
-  end
-  if opts["remind"] then
-    return "#remind"
-  end
-  if opts["research"] then
-    return "#research"
-  end
-  if opts["idea"] then
-    return "#idea"
-  end
-  return nil
-end
-
-local function get_context_tag(opts)
-  if opts["work"] or opts["daily"] then
-    return "#work"
-  end
-  if opts["scouts"] then
-    return "#scouts"
-  end
-  return "#personal"
-end
-
-local function get_time_tags(opts)
-  local tags = {}
-
-  if opts["date"] or opts["daily"] then
-    table.insert(tags, '#date-' .. os.date('%Y-%m-%d'))
-  end
-  if opts["time"] and not opts["daily"] then
-    table.insert(tags, '#time-' .. os.date('%H-%M'))
-  end
-
-  return tags
-end
-
 local function get_tags(opts)
   opts = opts or {}
 
   local tags = {}
 
-  local priority_tag = get_priority_tag(opts)
-  if priority_tag then
-    table.insert(tags, priority_tag)
-  end
-
-  table.insert(tags, get_context_tag(opts))
-
-  if opts["daily"] then
-    table.insert(tags, '#daily')
-  end
-
   for _, value in ipairs(opts) do
+    if value == 'date' then
+      value = value .. os.date('%Y-%m-%d')
+    end
+    if value == 'time' then
+      value = value .. os.date('%H-%M')
+    end
     table.insert(tags, '#' .. value)
-  end
-
-  for _, tag in ipairs(get_time_tags(opts)) do
-    table.insert(tags, tag)
   end
 
   return tags
