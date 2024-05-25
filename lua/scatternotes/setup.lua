@@ -12,11 +12,17 @@ local function setup_keymaps(opts)
   if opts == nil then
     return
   end
-  local search_note = require('scatternotes.search').search_note
   local search = opts['search']
   if search ~= nil then
-    local name = table.remove(search, 1)
-    vim.keymap.set('n', name, search_note, search)
+    local keys = table.remove(search, 1)
+    local search_note = require('scatternotes.search').search_note
+    vim.keymap.set('n', keys, search_note, search)
+  end
+  local commit = opts['commit']
+  if commit ~= nil then
+    local keys = table.remove(commit, 1)
+    local commit_notes = require('scatternotes.commit').commit_notes
+    vim.keymap.set('n', keys, commit_notes, commit)
   end
 end
 
