@@ -1,41 +1,39 @@
 local create_centered_window = require('scatternotes.window').create_centered_window
 
+---@return string
 local function generate_note_filename()
-  return vim.fn.system('scatternotes generate'):gsub('[\t\n ]+$', '')
+  return vim.fn.trim(vim.fn.system('scatternotes generate'))
 end
 
+---@return string
 local function get_tags(opts)
-  opts = opts or {}
-
+  if opts == nil then
+    return ''
+  end
   local tags = {}
-
   for _, value in ipairs(opts) do
     if value == 'date' then
-      value = value .. os.date('%Y-%m-%d')
+      value = '#date-' .. os.date('%Y-%m-%d')
+    elseif value == 'time' then
+      value = '#time-' .. os.date('%H-%M')
+    else
+      value = '#' .. value
     end
-    if value == 'time' then
-      value = value .. os.date('%H-%M')
-    end
-    table.insert(tags, '#' .. value)
+    table.insert(tags, value)
   end
-
-  return tags
+  return table.concat(tags, ' ')
 end
 
 local function create_note(opts)
   local buffer = vim.api.nvim_create_buf(false, false)
   create_centered_window('| Write Your Note |', .8, .6, buffer)
 
-  local filename = generate_note_filename()
-  vim.api.nvim_buf_set_name(buffer, filename)
+  vim.api.nvim_buf_set_name(buffer, generate_note_filename())
 
   vim.api.nvim_buf_set_option(buffer, 'modifiable', true)
   vim.api.nvim_buf_set_option(buffer, 'filetype', 'md')
 
-  local keys = table.concat(get_tags(opts), ' ')
-  local file_content = { keys, '', '' }
-
-  vim.api.nvim_buf_set_lines(buffer, 0, -1, false, file_content)
+  vim.api.nvim_buf_set_lines(buffer, 0, -1, false, { get_tags(opts), '', '' })
   vim.cmd.norm('G')
 end
 
