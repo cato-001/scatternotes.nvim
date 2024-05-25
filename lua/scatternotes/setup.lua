@@ -1,4 +1,4 @@
-local function commands(opts)
+local function setup_commands(opts)
   if opts == nil then
     return
   end
@@ -8,6 +8,7 @@ local function commands(opts)
   end
 end
 
-return {
-  commands = commands
-}
+return function(opts)
+  opts = opts or {}
+  setup_commands(opts['commands'])
+end
