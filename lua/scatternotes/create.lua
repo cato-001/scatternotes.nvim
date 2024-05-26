@@ -25,14 +25,13 @@ local function get_tags(opts)
 end
 
 local function create_note(opts)
-  local buffer = vim.api.nvim_create_buf(false, false)
-  create_centered_window('| Write Your Note |', .8, .6, buffer)
+  vim.cmd('vertical edit ' .. generate_note_filename())
 
-  vim.api.nvim_buf_set_name(buffer, generate_note_filename())
+  local window = vim.api.nvim_get_current_win()
+  vim.api.nvim_win_set_width(window, vim.o.columns)
+  vim.api.nvim_win_set_height(window, vim.o.lines)
 
-  vim.api.nvim_buf_set_option(buffer, 'modifiable', true)
-  vim.api.nvim_buf_set_option(buffer, 'filetype', 'md')
-
+  local buffer = vim.api.nvim_get_current_buf()
   vim.api.nvim_buf_set_lines(buffer, 0, -1, false, { get_tags(opts), '', '' })
   vim.cmd.norm('G')
 end
