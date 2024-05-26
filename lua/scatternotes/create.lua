@@ -1,5 +1,3 @@
-local create_centered_window = require('scatternotes.window').create_centered_window
-
 ---@return string
 local function generate_note_filename()
   return vim.fn.trim(vim.fn.system('scatternotes generate'))
