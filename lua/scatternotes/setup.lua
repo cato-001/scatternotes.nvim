@@ -1,3 +1,7 @@
+local function setup_runtime_path()
+  vim.opt.runtimepath:append(vim.fn.expand('~/projects/scatternotes.nvim'))
+end
+
 local function setup_commands(opts)
   if opts == nil then
     return
@@ -36,6 +40,7 @@ end
 
 local function setup(opts)
   opts = opts or {}
+  setup_runtime_path()
   setup_commands(opts['commands'])
   setup_keymaps(opts['keymaps'])
 end

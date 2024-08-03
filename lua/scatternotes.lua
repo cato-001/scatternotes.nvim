@@ -1,11 +1,9 @@
-local create_note = require('scatternotes.create').create_note
-local search_note = require('scatternotes.search').search_note
-local commit_notes = require('scatternotes.commit').commit_notes
-local setup = require('scatternotes.setup')
+local M = {}
 
-return {
-  create_note = create_note,
-  search_note = search_note,
-  commit_notes = commit_notes,
-  setup = setup,
-}
+M.create_note = require('scatternotes.create').create_note
+M.search_note = require('scatternotes.search').search_note
+M.commit_notes = require('scatternotes.commit').commit_notes
+M.health = require('scatternotes.health')
+M.setup = require('scatternotes.setup')
+
+return M
