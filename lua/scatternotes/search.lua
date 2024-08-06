@@ -6,17 +6,17 @@ local config = require('telescope.config').values
 local function notes_search_picker(opts)
   opts = opts or {}
 
-  local finder = finders.new_job(
+  local finder = finders.JobFinder:new(
     function(prompt)
       if prompt == nil or prompt == "" then
-        return { "scatternotes", "list", "--show-tags" }
+        return { "scatternotes", "--plain", "list", "--tags" }
       end
 
-      local command = { "scatternotes", "search" }
+      local command = { "scatternotes", "--plain", "search" }
       for tag in prompt:gmatch("%S+") do
         table.insert(command, tag)
       end
-      table.insert(command, "--show-tags")
+      table.insert(command, "--tags")
 
       return command
     end,
