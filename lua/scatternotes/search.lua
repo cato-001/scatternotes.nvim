@@ -5,9 +5,8 @@ local config = require('telescope.config').values
 
 local function notes_search_picker(opts)
   opts = opts or {}
-  print("hello this is the searcher")
 
-  local finder = finders.JobFinder:new(
+  local finder = finders.new_job(
     function(prompt)
       if prompt == nil or prompt == "" then
         return { "scatternotes", "--plain", "list", "--tags" }
